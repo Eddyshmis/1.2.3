@@ -22,6 +22,12 @@ for apple in list_apples:
         apple.setheading(270)
 
 
+
+
+
+
+
+
 def new_pos(active_apple):
     last_x,last_y = active_apple.pos()
     new_x,new_y = randint(0,200),randint(50,100)
@@ -37,11 +43,16 @@ def falling_apple(active_apple):
     active_apple.hideturtle()
     new_pos(active_apple)
 
+def key_pressed(key_pressed):
+    print(key_pressed)
+
 def pressed():
   for i in keys:
-    tl.onkey(partial(falling_apple,i),i)
+    tl.onkey(partial(key_pressed,i),i)
 
-# falling_apple()
+for apple in list_apples:
+    index_letter = randint(0,(len(keys)- 1))
+    apple.write(f"{keys[index_letter]}",False,"center",("Arial",20,"normal"))
 
 tl.onkeypress(pressed)
 tl.listen()
