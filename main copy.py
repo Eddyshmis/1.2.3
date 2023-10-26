@@ -60,7 +60,9 @@ def falling_apple(active_apple,key):
     new_pos(active_apple)
     index_letter = randint(0,(len(keys)- 1))
     applesintree[keys[index_letter]] = [active_apple]
+    used_keys.append(keys[index_letter])
     active_apple.write(f"{keys[index_letter]}",False,"center",("Arial",20,"normal"))
+    keys.remove(keys[index_letter])
     print(f"\n{keys}\n")
 
 # example_turtle.clear()
@@ -68,8 +70,8 @@ def key_pressed(key_pressed):
     # print(key_pressed)
     
     if key_pressed in applesintree:
-        used_keys.append(key_pressed)
-        keys.remove(key_pressed)
+        used_keys.remove(key_pressed)
+        
         tl.onkey(None,key_pressed)
         print(key_pressed,applesintree[key_pressed])
 
@@ -78,7 +80,7 @@ def key_pressed(key_pressed):
 
 
 def pressed():
-  for i in key:
+  for i in used_keys:
     tl.onkey(partial(key_pressed,i),i)
 
 for apple in list_apples:
@@ -87,8 +89,10 @@ for apple in list_apples:
     index_letter = randint(0,(len(keys)- 1))
     new_pos(apple)
     applesintree[keys[index_letter]] = [apple]
-    
+    used_keys.append(keys[index_letter])
     apple.write(f"{keys[index_letter]}",False,"center",("Arial",20,"normal"))
+    keys.remove(keys[index_letter])
+
 
 
 

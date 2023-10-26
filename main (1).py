@@ -48,11 +48,12 @@ def pressed():
 
 #-----function calls-----
 
-
+#start game
 for apple in list_apples:
   draw_apple(apple)
   if apple.heading() != 270:
     apple.setheading(270)
+
 
 trtl.onkeypress(pressed)
 
