@@ -9,8 +9,8 @@ window.addshape("apple.gif")
 
 example_turtle = tl.Turtle()
 keys = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
-used_keys = []
 using_keys = []
+
 applesintree = {}
 num_apples = 5
 list_apples = []
@@ -28,25 +28,19 @@ for apple in list_apples:
 
 
 
-def assign_new_letter(active_apple):
-    print(active_apple)
-    apple.up()
-    index_letter = randint(0,(len(keys)- 1))
-    new_pos(active_apple)
-    applesintree[keys[index_letter]] = [active_apple]
-    active_apple.write(f"{keys[index_letter]}",False,"center",("Arial",20,"normal"))
+
 
 
 
 def new_pos(active_apple):
     last_x,last_y = active_apple.pos()
-    new_x,new_y = randint(0,200),randint(50,100)
+    new_x,new_y = randint(0,200),randint(50,120)
     while abs(new_x - last_x) < 20:
         new_x = randint(0,200)
     while abs(new_y - last_y) < 20:
         new_y = randint(0,200)
     active_apple.goto(new_x,new_y)
-    active_apple.showturtle()
+    
     
 
 
@@ -57,20 +51,27 @@ def falling_apple(active_apple,key):
 
     applesintree.pop(key)
 
+    
+
+    
+
     new_pos(active_apple)
+
     index_letter = randint(0,(len(keys)- 1))
-    applesintree[keys[index_letter]] = [active_apple]
-    used_keys.append(keys[index_letter])
-    active_apple.write(f"{keys[index_letter]}",False,"center",("Arial",20,"normal"))
-    keys.remove(keys[index_letter])
-    print(f"\n{keys}\n")
+    if len(keys) > len(list_apples):
+        applesintree[keys[index_letter]] = [active_apple]
+    
+        using_keys.append(keys[index_letter])
+        active_apple.write(f"{keys[index_letter]}",False,"center",("Arial",20,"normal"))
+        keys.remove(keys[index_letter])
+        active_apple.showturtle()
 
 # example_turtle.clear()
 def key_pressed(key_pressed):
     # print(key_pressed)
     
     if key_pressed in applesintree:
-        used_keys.remove(key_pressed)
+        using_keys.remove(key_pressed)
         
         tl.onkey(None,key_pressed)
         print(key_pressed,applesintree[key_pressed])
@@ -80,7 +81,7 @@ def key_pressed(key_pressed):
 
 
 def pressed():
-  for i in used_keys:
+  for i in using_keys:
     tl.onkey(partial(key_pressed,i),i)
 
 for apple in list_apples:
@@ -89,12 +90,9 @@ for apple in list_apples:
     index_letter = randint(0,(len(keys)- 1))
     new_pos(apple)
     applesintree[keys[index_letter]] = [apple]
-    used_keys.append(keys[index_letter])
+    using_keys.append(keys[index_letter])
     apple.write(f"{keys[index_letter]}",False,"center",("Arial",20,"normal"))
     keys.remove(keys[index_letter])
-
-
-
 
 tl.onkeypress(pressed)
 tl.listen()
