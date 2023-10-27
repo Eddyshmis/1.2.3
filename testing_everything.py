@@ -7,7 +7,7 @@ window = tl.Screen()
 window.bgpic('background.gif')
 window.addshape("apple.gif")
 
-example_turtle = tl.Turtle()
+
 keys = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
 using_keys = []
 
